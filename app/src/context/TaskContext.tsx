@@ -8,23 +8,19 @@ interface TaskContextProps {
   deleteTask: (taskId: string) => void;
 }
 
-interface TaskContextProviderProps {
-  children: ReactNode;
-}
-
 export const TaskContext = createContext<TaskContextProps | undefined>(
   undefined
 );
 
 export const useTaskContext = () => {
-  const context = useContext(TaskContext)
+  const context = useContext(TaskContext);
   if (!context) {
-    throw new Error('useTaskContext must be used within a TaskContextProvider')
+    throw new Error('useTaskContext must be used within a TaskContextProvider');
   }
   return context;
-}
+};
 
-const TaskContextProvider: React.FC<TaskContextProviderProps> = ({
+const TaskContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
